@@ -1,5 +1,4 @@
 import { health_issues } from "../mock_data/health_data.js"
-import escape from "lodash.escape";
 
 const addToDatabase = function(req, res) {
     health_issues.push({

@@ -9,10 +9,12 @@ Date.prototype.addDays = function(days) {
 
 const post_food = function(req, res){
     if (Date.parse(req.body['eaten_date'])){
-        const foods = req.body['foods'].split(',');
+        const foods = `${req.body['foods']}`;
+        
+        const foods_array = typeof foods === 'string' ? foods.split(',') : [];
         const eaten_date = new Date(req.body['eaten_date']);
 
-        foods.forEach((f) => {
+        foods_array.forEach((f) => {
             addToDatabase(f, eaten_date)
         })
 
