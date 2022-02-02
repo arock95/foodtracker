@@ -1,4 +1,5 @@
 import { health_issues } from "../mock_data/health_data.js"
+import escape from "lodash.escape";
 
 const addToDatabase = function(req, res) {
     health_issues.push({
@@ -6,9 +7,9 @@ const addToDatabase = function(req, res) {
         "occurrence_date": req.body['occurrence_date']
     });
     res.status(201);
-    res.send(JSON.stringify(req.body));
+    res.send(`Health issue ${escape(req.body['health_issue'])} added to database!`);
  }
 
- 
+
 
  export {addToDatabase};

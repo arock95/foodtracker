@@ -1,4 +1,5 @@
 import { food_entries } from "../mock_data/food_data.js";
+import escape from 'lodash.escape';
 
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
@@ -16,7 +17,7 @@ const post_food = function(req, res){
         })
 
         res.status( 201 );
-        res.send(`added ${JSON.stringify(req.body)} to database!`);
+        res.send(`added ${escape(foods)} to database!`);
     } else {
         res.status( 400 );
         res.send("Invalid data!");
