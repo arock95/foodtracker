@@ -17,7 +17,7 @@ const post_food = function(req, res){
         })
 
         res.status( 201 );
-        res.send(`added ${escape(foods)} to database!`);
+        res.send(`foods added to database!`);
     } else {
         res.status( 400 );
         res.send("Invalid data!");

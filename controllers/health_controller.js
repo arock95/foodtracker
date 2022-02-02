@@ -7,7 +7,7 @@ const addToDatabase = function(req, res) {
         "occurrence_date": req.body['occurrence_date']
     });
     res.status(201);
-    res.send(`Health issue ${escape(req.body['health_issue'])} added to database!`);
+    res.send(`Health issue added to database!`);
  }
 
 
