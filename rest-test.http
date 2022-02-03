@@ -12,13 +12,35 @@ Content-Type: application/json
 
 {
     "health_issue":"gout",
-    "eaten_date": "2/1/2022"
+    "occurrence_date": "2/1/2022"
 }
 
 ####
 
 GET http://localhost:8080/food?days=3 HTTP/1.1
 
+### BAD REQUEST
+GET http://localhost:8080/food?days=four HTTP/1.1
+
+####
+
+GET http://localhost:8080/food?start=1/28/2022&end=2/2/2022 HTTP/1.1
+
+### BAD REQUEST
+GET http://localhost:8080/food?start=1/28/2022&end=february HTTP/1.1
+
+
+
+
 ###
 
-GET http://localhost:8080/health HTTP/1.1
+GET http://localhost:8080/health?days=4 HTTP/1.1
+
+### BAD
+GET http://localhost:8080/health?days=four HTTP/1.1
+
+###
+GET http://localhost:8080/health?start=1/1/2022&end=2/2/2022 HTTP/1.1
+
+### BAD REQUEST
+GET http://localhost:8080/health?start=1/28/2022&end=roygbiv HTTP/1.1

@@ -1,5 +1,6 @@
+import moment from "moment";
 import { food_entries } from "../mock_data/food_data.js";
-import escape from 'lodash.escape';
+
 
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
@@ -34,24 +35,35 @@ const addToDatabase = function (food, eaten_date) {
 }
 
 const get_food = function(req, res) {
-    const days_back = req.query['days'] * -1;
-    res.send(getFoodsDaysBack(days_back));
-    
+    if (Number.parseInt(req.query['days'])) {
+        const days_back = req.query['days'] * -1;
+        res.send(getFoodsDaysBack(days_back));
+    } else if (moment(req.query['start']).isValid() && moment(req.query['end']).isValid()) {
+        res.send(getFoodsByRange(moment(req.query['start']), moment(req.query['end'])));
+    } else {
+        res.status(400);
+        res.send("Invalid query parameters");
+    }
 }
-
-
 
 const getFoodsDaysBack = function (days) {
     const foods = []
     let daysBack = new Date()
     daysBack = daysBack.addDays(days)
 
-    console.log(daysBack);
-
-    console.log(food_entries);
-
     food_entries.forEach((f) => {
         if (f.eaten_date >= daysBack) {
+            foods.push(f);
+        }
+    })
+    return foods;
+}
+
+const getFoodsByRange = (start, end) => {
+    const foods = []
+
+    food_entries.forEach((f) => {
+        if (f.eaten_date >= start && f.eaten_date <= end) {
             foods.push(f);
         }
     })
